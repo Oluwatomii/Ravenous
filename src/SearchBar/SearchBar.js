@@ -43,6 +43,10 @@ class SearchBar extends React.Component {
         })
     }
     handleSearch(event){
+        if(this.state.term === "" || this.state.location === ""){
+            alert("Business or location missing. Please input a value");
+            return;
+        }
         this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
         event.preventDefault();
     }
@@ -55,18 +59,20 @@ class SearchBar extends React.Component {
     render() {
         return (
             <div className="SearchBar">
+                <form action = "submit">
                 <div className="SearchBar-sort-options">
                     <ul>
                         {this.renderSortByOptions()}
                     </ul>
                 </div>
                 <div className="SearchBar-fields">
-                    <input onChange={this.handleTermChanges} placeholder="Search Businesses" />
-                    <input onChange={this.handleLocationChange}placeholder="Where?" />
+                    <input onChange={this.handleTermChanges} placeholder="Search Businesses" required/>
+                    <input onChange={this.handleLocationChange}placeholder="Where?" required/>
                 </div>
                 <div className="SearchBar-submit">
-                    <a onClick={this.handleSearch}>Let's Go</a>
+                    <button type="submit" onClick={this.handleSearch}>Let's Go</button>
                 </div>
+                </form>
             </div>
         );
     }
